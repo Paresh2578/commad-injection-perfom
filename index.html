@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Command</title>
+</head>
+<body>
+    <h1>Run Command</h1>
+    <input type="text" id="command" placeholder="Enter command">
+    <button onclick="runCommand()">Run</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function runCommand() {
+            const command = document.getElementById('command').value;
+            const response = await fetch('http://localhost:3000/run-command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            });
+            const result = await response.text();
+            document.getElementById('output').textContent = result;
+        }
+    </script>
+</body>
+</html>
